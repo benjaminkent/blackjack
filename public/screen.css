@@ -13,8 +13,8 @@ body {
 }
 
 img {
-  width: 100px;
-  height: 150px;
+  width: 80px;
+  height: 125px;
   border-radius: 10px;
 }
 
@@ -54,9 +54,15 @@ button {
   color: #ddd8b8;
   font-size: 2rem;
   border-radius: 100%;
-  margin: 30px 20px 0 20px;
+  margin: 0 30px;
   outline: none;
 }
+
+h2 {
+  color: #ddd8b8;
+}
+
+
 
 button:hover {
   background-color: #d5573b;
@@ -67,4 +73,11 @@ p.outcome {
   font-size: 3rem;
   text-align: center;
   padding: 40px 0;
+}
+
+.total p {
+  font-size: 2rem;
+  color: #ddd8b8;
+  display: flex;
+  justify-content: center;
 }

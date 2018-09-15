@@ -1,3 +1,5 @@
+let dealerHand = []
+
 playerChoseToHit = () => {
   console.log('You Hit')
 }
