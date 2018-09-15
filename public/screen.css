@@ -47,8 +47,8 @@ main {
 }
 
 button {
-  height: 100px;
-  width: 100px;
+  height: 75px;
+  width: 75px;
   background-color: #4b3b47;
   border: 2px solid #32442e;
   color: #ddd8b8;
@@ -78,6 +78,13 @@ p.outcome {
 .total p {
   font-size: 2rem;
   color: #ddd8b8;
+  display: inline-block;
+}
+
+.play-again {
+  font-size: 1rem;
+}
+
+.buttons {
   display: flex;
-  justify-content: center;
 }
