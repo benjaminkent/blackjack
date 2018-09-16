@@ -1,6 +1,49 @@
 let dealerHand = []
 let playerHand = []
 let deck = []
+let playerTotal = 0
+let dealerTotal = 0
+
+let countPlayerTotal = () => {
+  if (playerHand.length === 2) {
+    playerTotal = playerHand[0].value + playerHand[1].value
+    document.querySelector('.player-hand-total').textContent = playerTotal
+  }
+
+  if (playerHand.length === 3) {
+    playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value
+    document.querySelector('.player-hand-total').textContent = playerTotal
+
+  }
+
+  if (playerHand.length === 4) {
+    playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value
+    document.querySelector('.player-hand-total').textContent = playerTotal
+  }
+
+  if (playerHand.length === 5) {
+    playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value + playerHand[4].value
+    document.querySelector('.player-hand-total').textContent = playerTotal
+  }
+}
+
+let countDealerTotal = () => {
+  if (dealerHand.length === 2) {
+    dealerTotal = dealerHand[0].value + dealerHand[1].value
+  }
+
+  if (dealerHand.length === 3) {
+    dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value
+  }
+
+  if (dealerHand.length === 4) {
+    dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value
+  }
+
+  if (dealerHand.length === 5) {
+    dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value + dealerHand[4].value
+  }
+}
 
 const dealCardToPlayer = () => {
   let card = deck.pop()
@@ -9,6 +52,7 @@ const dealCardToPlayer = () => {
   let image = document.createElement('img')
   image.src = `/images/${card.face}${card.suit}.jpg`
   playerHandDiv.appendChild(image)
+  countPlayerTotal()
 }
 
 const dealCardToDealer = (upOrDown) => {
@@ -24,8 +68,26 @@ const dealCardToDealer = (upOrDown) => {
   dealerHandDiv.appendChild(image)
 }
 
+let determineWinner = () => {
+  if (playerHand > dealerHand) {
+    document.querySelector('.total').textContent = 'Dealer has ' + `${dealerTotal}` + '. You Win!'
+  }
+
+  if (playerHand < dealerHand) {
+    document.querySelector('.total').textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose!'
+  }
+
+  if (playerHand === dealerHand) {
+    document.querySelector('.total').textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose!'
+  }
+}
+
 playerChoseToHit = () => {
   dealCardToPlayer()
+  countPlayerTotal()
+  if (playerTotal >= 22) {
+    document.querySelector('.outcome').textContent = 'You Bust. Dealer Wins!'
+  }
 }
 
 playerChoseToStay = () => {
@@ -80,6 +142,8 @@ const main = () => {
   dealCardToPlayer()
   dealCardToDealer('up')
   dealCardToDealer('down')
+  countPlayerTotal()
+  countDealerTotal()
 
   document.querySelector('.play-again').addEventListener('click', () => {
     document.location = '/'
