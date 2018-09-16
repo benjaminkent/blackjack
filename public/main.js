@@ -68,17 +68,28 @@ const dealCardToDealer = (upOrDown) => {
   dealerHandDiv.appendChild(image)
 }
 
-let determineWinner = () => {
-  if (playerHand > dealerHand) {
-    document.querySelector('.total').textContent = 'Dealer has ' + `${dealerTotal}` + '. You Win!'
-  }
+const winnerDeclared = () => {
+  let winDeclareStatement = document.querySelector('.outcome')
 
-  if (playerHand < dealerHand) {
-    document.querySelector('.total').textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose!'
-  }
+  countDealerTotal()
+  countPlayerTotal()
 
-  if (playerHand === dealerHand) {
-    document.querySelector('.total').textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose!'
+  if (dealerTotal !== 0 && playerTotal !== 0) {
+    if (dealerTotal >= 22) {
+      winDeclareStatement.textContent = 'Dealer Busts with ' + `${dealerTotal}` + '.You Win!'
+    }
+
+    if (dealerTotal > playerTotal && dealerTotal <= 21) {
+      winDeclareStatement.textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose'
+    }
+
+    if (dealerTotal < playerTotal) {
+      winDeclareStatement.textContent = 'Dealer has ' + `${dealerTotal}` + '. You Win!'
+    }
+
+    if (dealerTotal === playerTotal) {
+      winDeclareStatement.textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose'
+    }
   }
 }
 
@@ -90,8 +101,27 @@ playerChoseToHit = () => {
   }
 }
 
+let dealerUnderSeventeen = () => {
+  if (dealerTotal < 17) {
+    dealCardToDealer()
+    winnerDeclared()
+  }
+}
+
 playerChoseToStay = () => {
-  console.log('You Stayed')
+  document.querySelector('.hide').classList.add('hidden')
+
+  dealerUnderSeventeen()
+  dealerUnderSeventeen()
+  dealerUnderSeventeen()
+
+  if (dealerTotal >= 17 && dealerTotal <= 21) {
+    winnerDeclared()
+  }
+
+  if (dealerTotal >= 22) {
+    winnerDeclared()
+  }
 }
 
 const main = () => {
@@ -140,8 +170,7 @@ const main = () => {
 
   dealCardToPlayer()
   dealCardToPlayer()
-  dealCardToDealer('up')
-  dealCardToDealer('down')
+  dealCardToDealer()
   countPlayerTotal()
   countDealerTotal()
 

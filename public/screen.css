@@ -40,7 +40,7 @@ p {
 main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   width: 75%;
   align-items: center;
   background-image: url(/images/green-felt.jpg);
@@ -56,6 +56,7 @@ button {
   border-radius: 100%;
   margin: 0 30px;
   outline: none;
+  margin-bottom: 200px;
 }
 
 h2 {
@@ -87,4 +88,8 @@ p.outcome {
 
 .buttons {
   display: flex;
+}
+
+.hidden {
+  display: none;
 }
