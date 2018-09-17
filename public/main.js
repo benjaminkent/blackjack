@@ -112,6 +112,8 @@ let dealerUnderSeventeen = () => {
 
 playerChoseToStay = () => {
   document.querySelector('.hide').classList.add('hidden')
+  document.querySelector('.player-hit').classList.add('hide-button')
+  document.querySelector('.player-stay').classList.add('hide-button')
 
   dealerUnderSeventeen()
   dealerUnderSeventeen()
