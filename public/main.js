@@ -1,48 +1,55 @@
 let dealerHand = []
 let playerHand = []
 let deck = []
-let playerTotal = 0
-let dealerTotal = 0
 
-let countPlayerTotal = () => {
-  if (playerHand.length === 2) {
-    playerTotal = playerHand[0].value + playerHand[1].value
-    document.querySelector('.player-hand-total').textContent = playerTotal
-  }
+// let countPlayerTotal = () => {
+//   if (playerHand.length === 2) {
+//     playerTotal = playerHand[0].value + playerHand[1].value
+//     document.querySelector('.player-hand-total').textContent = playerTotal
+//   }
+// 
+//   if (playerHand.length === 3) {
+//     playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value
+//     document.querySelector('.player-hand-total').textContent = playerTotal
+// 
+//   }
+// 
+//   if (playerHand.length === 4) {
+//     playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value
+//     document.querySelector('.player-hand-total').textContent = playerTotal
+//   }
+// 
+//   if (playerHand.length === 5) {
+//     playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value + playerHand[4].value
+//     document.querySelector('.player-hand-total').textContent = playerTotal
+//   }
+// }
 
-  if (playerHand.length === 3) {
-    playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value
-    document.querySelector('.player-hand-total').textContent = playerTotal
+// let countDealerTotal = () => {
+//   if (dealerHand.length === 2) {
+//     dealerTotal = dealerHand[0].value + dealerHand[1].value
+//   }
+// 
+//   if (dealerHand.length === 3) {
+//     dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value
+//   }
+// 
+//   if (dealerHand.length === 4) {
+//     dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value
+//   }
+// 
+//   if (dealerHand.length === 5) {
+//     dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value + dealerHand[4].value
+//   }
+// }
 
-  }
+const playerHandTotal = () => {
+  let playerTotal = 0
+  playerHand.forEach(card => {
+    playerTotal += card.value
+  })
 
-  if (playerHand.length === 4) {
-    playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value
-    document.querySelector('.player-hand-total').textContent = playerTotal
-  }
-
-  if (playerHand.length === 5) {
-    playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value + playerHand[4].value
-    document.querySelector('.player-hand-total').textContent = playerTotal
-  }
-}
-
-let countDealerTotal = () => {
-  if (dealerHand.length === 2) {
-    dealerTotal = dealerHand[0].value + dealerHand[1].value
-  }
-
-  if (dealerHand.length === 3) {
-    dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value
-  }
-
-  if (dealerHand.length === 4) {
-    dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value
-  }
-
-  if (dealerHand.length === 5) {
-    dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value + dealerHand[4].value
-  }
+  return playerTotal
 }
 
 const dealCardToPlayer = () => {
@@ -52,7 +59,17 @@ const dealCardToPlayer = () => {
   let image = document.createElement('img')
   image.src = `/images/${card.face}${card.suit}.jpg`
   playerHandDiv.appendChild(image)
-  countPlayerTotal()
+
+  document.querySelector('.player-hand-total').textContent = playerHandTotal()
+}
+
+const dealerHandTotal = () => {
+  let dealerTotal = 0
+  dealerHand.forEach(card => {
+    dealerTotal += card.value
+  })
+
+  return dealerTotal
 }
 
 const dealCardToDealer = (upOrDown) => {
@@ -71,32 +88,29 @@ const dealCardToDealer = (upOrDown) => {
 const winnerDeclared = () => {
   let winDeclareStatement = document.querySelector('.outcome')
 
-  countDealerTotal()
-  countPlayerTotal()
-
-  if (dealerTotal !== 0 && playerTotal !== 0) {
-    if (dealerTotal >= 22) {
-      winDeclareStatement.textContent = 'Dealer Busts with ' + `${dealerTotal}` + '.You Win!'
+  if (dealerHandTotal() !== 0 && playerHandTotal() !== 0) {
+    if (dealerHandTotal() >= 22) {
+      winDeclareStatement.textContent = 'Dealer Busts with ' + `${dealerHandTotal()}` + '.You Win!'
     }
 
-    if (dealerTotal > playerTotal && dealerTotal <= 21) {
-      winDeclareStatement.textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose'
+    if (dealerHandTotal() > playerHandTotal() && dealerHandTotal() <= 21) {
+      winDeclareStatement.textContent = 'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
     }
 
-    if (dealerTotal < playerTotal) {
-      winDeclareStatement.textContent = 'Dealer has ' + `${dealerTotal}` + '. You Win!'
+    if (dealerHandTotal() < playerHandTotal()) {
+      winDeclareStatement.textContent = 'Dealer has ' + `${dealerHandTotal()}` + '. You Win!'
     }
 
-    if (dealerTotal === playerTotal) {
-      winDeclareStatement.textContent = 'Dealer has ' + `${dealerTotal}` + '. You Lose'
+    if (dealerHandTotal() === playerHandTotal()) {
+      winDeclareStatement.textContent = 'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
     }
   }
 }
 
+
 playerChoseToHit = () => {
   dealCardToPlayer()
-  countPlayerTotal()
-  if (playerTotal >= 22) {
+  if (playerHandTotal() >= 22) {
     document.querySelector('.outcome').textContent = 'You Bust. Dealer Wins!'
     document.querySelector('.player-hit').classList.add('hide-button')
     document.querySelector('.player-stay').classList.add('hide-button')
@@ -104,7 +118,7 @@ playerChoseToHit = () => {
 }
 
 let dealerUnderSeventeen = () => {
-  if (dealerTotal < 17) {
+  if (dealerHandTotal() < 17) {
     dealCardToDealer()
     winnerDeclared()
   }
@@ -120,11 +134,11 @@ playerChoseToStay = () => {
   dealerUnderSeventeen()
   dealerUnderSeventeen()
 
-  if (dealerTotal >= 17 && dealerTotal <= 21) {
+  if (dealerHandTotal() >= 17 && dealerHandTotal() <= 21) {
     winnerDeclared()
   }
 
-  if (dealerTotal >= 22) {
+  if (dealerHandTotal() >= 22) {
     winnerDeclared()
   }
 }
@@ -176,14 +190,10 @@ const main = () => {
   dealCardToPlayer()
   dealCardToPlayer()
   dealCardToDealer()
-  countPlayerTotal()
-  countDealerTotal()
 
   document.querySelector('.play-again').addEventListener('click', () => {
     document.location = '/'
   })
-
-
 }
 
 document.addEventListener('DOMContentLoaded', main)
