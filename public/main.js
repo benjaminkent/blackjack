@@ -114,6 +114,7 @@ playerChoseToStay = () => {
   dealerUnderSeventeen()
   dealerUnderSeventeen()
   dealerUnderSeventeen()
+  dealerUnderSeventeen()
 
   if (dealerTotal >= 17 && dealerTotal <= 21) {
     winnerDeclared()
