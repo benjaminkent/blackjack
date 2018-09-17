@@ -99,6 +99,10 @@ p.outcome {
   display: none;
 }
 
+.hide-button {
+  display: none;
+}
+
 .money {
   height: 100px;
 }

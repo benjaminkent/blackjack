@@ -98,6 +98,8 @@ playerChoseToHit = () => {
   countPlayerTotal()
   if (playerTotal >= 22) {
     document.querySelector('.outcome').textContent = 'You Bust. Dealer Wins!'
+    document.querySelector('.player-hit').classList.add('hide-button')
+    document.querySelector('.player-stay').classList.add('hide-button')
   }
 }
 
