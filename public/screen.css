@@ -22,11 +22,12 @@ img {
 aside {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   width: 15%;
   background-color: #d5573b;
   color: black;
+  padding-top: 75px;
 }
 
 aside p {
