@@ -17,6 +17,7 @@ img {
   width: 100px;
   height: 150px;
   border-radius: 10px;
+  margin-right: 2px;
 }
 
 aside {
@@ -60,6 +61,7 @@ button {
   outline: none;
   margin-bottom: 200px;
   font-family: 'Raleway', sans-serif;
+  text-align: center;
 }
 
 h2 {
