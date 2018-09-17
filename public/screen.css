@@ -103,6 +103,10 @@ p.outcome {
   height: 100px;
 }
 
+.dealer-hand {
+  padding: 20px;
+}
+
 @media (min-width: 600px) {
   header {
     display: none;
