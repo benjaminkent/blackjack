@@ -1,6 +1,6 @@
 # Blackjack
 
-<img src="blackjack.png" />
+<img src="./public/blackjack.png" />
 
 Blackjack game.
 
