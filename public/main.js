@@ -2,47 +2,6 @@ let dealerHand = []
 let playerHand = []
 let deck = []
 
-// let countPlayerTotal = () => {
-//   if (playerHand.length === 2) {
-//     playerTotal = playerHand[0].value + playerHand[1].value
-//     document.querySelector('.player-hand-total').textContent = playerTotal
-//   }
-// 
-//   if (playerHand.length === 3) {
-//     playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value
-//     document.querySelector('.player-hand-total').textContent = playerTotal
-// 
-//   }
-// 
-//   if (playerHand.length === 4) {
-//     playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value
-//     document.querySelector('.player-hand-total').textContent = playerTotal
-//   }
-// 
-//   if (playerHand.length === 5) {
-//     playerTotal = playerHand[0].value + playerHand[1].value + playerHand[2].value + playerHand[3].value + playerHand[4].value
-//     document.querySelector('.player-hand-total').textContent = playerTotal
-//   }
-// }
-
-// let countDealerTotal = () => {
-//   if (dealerHand.length === 2) {
-//     dealerTotal = dealerHand[0].value + dealerHand[1].value
-//   }
-// 
-//   if (dealerHand.length === 3) {
-//     dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value
-//   }
-// 
-//   if (dealerHand.length === 4) {
-//     dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value
-//   }
-// 
-//   if (dealerHand.length === 5) {
-//     dealerTotal = dealerHand[0].value + dealerHand[1].value + dealerHand[2].value + dealerHand[3].value + dealerHand[4].value
-//   }
-// }
-
 const playerHandTotal = () => {
   let playerTotal = 0
   playerHand.forEach(card => {
@@ -72,7 +31,7 @@ const dealerHandTotal = () => {
   return dealerTotal
 }
 
-const dealCardToDealer = (upOrDown) => {
+const dealCardToDealer = upOrDown => {
   let card = deck.pop()
   dealerHand.push(card)
   let dealerHandDiv = document.querySelector('.dealer-hand')
@@ -90,23 +49,26 @@ const winnerDeclared = () => {
 
   if (dealerHandTotal() !== 0 && playerHandTotal() !== 0) {
     if (dealerHandTotal() >= 22) {
-      winDeclareStatement.textContent = 'Dealer Busts with ' + `${dealerHandTotal()}` + '.You Win!'
+      winDeclareStatement.textContent =
+        'Dealer Busts with ' + `${dealerHandTotal()}` + '.You Win!'
     }
 
     if (dealerHandTotal() > playerHandTotal() && dealerHandTotal() <= 21) {
-      winDeclareStatement.textContent = 'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
+      winDeclareStatement.textContent =
+        'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
     }
 
     if (dealerHandTotal() < playerHandTotal()) {
-      winDeclareStatement.textContent = 'Dealer has ' + `${dealerHandTotal()}` + '. You Win!'
+      winDeclareStatement.textContent =
+        'Dealer has ' + `${dealerHandTotal()}` + '. You Win!'
     }
 
     if (dealerHandTotal() === playerHandTotal()) {
-      winDeclareStatement.textContent = 'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
+      winDeclareStatement.textContent =
+        'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
     }
   }
 }
-
 
 playerChoseToHit = () => {
   dealCardToPlayer()
@@ -163,7 +125,6 @@ const main = () => {
 
   suits.forEach(suit => {
     cardValues.forEach(card => {
-
       let newCardForTheDeck = {
         suit: suit,
         value: card.value,
@@ -197,4 +158,3 @@ const main = () => {
 }
 
 document.addEventListener('DOMContentLoaded', main)
-
