@@ -55,6 +55,13 @@ const winnerDeclared = () => {
   }
 }
 
+let dealerUnderSeventeen = () => {
+  while (dealerHandTotal() < 17) {
+    dealCardToDealer()
+  }
+  winnerDeclared()
+}
+
 const playerChoseToHit = () => {
   dealCardToPlayer()
   if (playerHandTotal() >= 22) {
@@ -62,13 +69,6 @@ const playerChoseToHit = () => {
     document.querySelector('.player-hit').classList.add('hide-button')
     document.querySelector('.player-stay').classList.add('hide-button')
   }
-}
-
-let dealerUnderSeventeen = () => {
-  while (dealerHandTotal() < 17) {
-    dealCardToDealer()
-  }
-  winnerDeclared()
 }
 
 const playerChoseToStay = () => {
