@@ -7,19 +7,7 @@ const playerHandTotal = () => {
   playerHand.forEach(card => {
     playerTotal += card.value
   })
-
   return playerTotal
-}
-
-const dealCardToPlayer = () => {
-  let card = deck.pop()
-  playerHand.push(card)
-  let playerHandDiv = document.querySelector('.player-hand')
-  let image = document.createElement('img')
-  image.src = `/images/${card.face}${card.suit}.jpg`
-  playerHandDiv.appendChild(image)
-
-  document.querySelector('.player-hand-total').textContent = playerHandTotal()
 }
 
 const dealerHandTotal = () => {
@@ -27,50 +15,47 @@ const dealerHandTotal = () => {
   dealerHand.forEach(card => {
     dealerTotal += card.value
   })
-
   return dealerTotal
 }
 
-const dealCardToDealer = upOrDown => {
+const dealCardToPlayer = () => {
   let card = deck.pop()
-  dealerHand.push(card)
-  let dealerHandDiv = document.querySelector('.dealer-hand')
+  playerHand.push(card)
   let image = document.createElement('img')
   image.src = `/images/${card.face}${card.suit}.jpg`
-  if (upOrDown === 'down') {
-    image.src = `/images/purple_back.jpg`
-    image.className = 'swing'
-  }
-  dealerHandDiv.appendChild(image)
+  document.querySelector('.player-hand').appendChild(image)
+  document.querySelector('.player-hand-total').textContent = playerHandTotal()
+}
+
+const dealCardToDealer = () => {
+  let card = deck.pop()
+  dealerHand.push(card)
+  let image = document.createElement('img')
+  image.src = `/images/${card.face}${card.suit}.jpg`
+  document.querySelector('.dealer-hand').appendChild(image)
 }
 
 const winnerDeclared = () => {
   let winDeclareStatement = document.querySelector('.outcome')
 
-  if (dealerHandTotal() !== 0 && playerHandTotal() !== 0) {
-    if (dealerHandTotal() >= 22) {
-      winDeclareStatement.textContent =
-        'Dealer Busts with ' + `${dealerHandTotal()}` + '.You Win!'
-    }
+  if (dealerHandTotal() >= 22) {
+    winDeclareStatement.textContent = `Dealer Busts with ${dealerHandTotal()}. You Win!`
+  }
 
-    if (dealerHandTotal() > playerHandTotal() && dealerHandTotal() <= 21) {
-      winDeclareStatement.textContent =
-        'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
-    }
+  if (dealerHandTotal() > playerHandTotal() && dealerHandTotal() <= 21) {
+    winDeclareStatement.textContent = `Dealer has ${dealerHandTotal()}. You Lose`
+  }
 
-    if (dealerHandTotal() < playerHandTotal()) {
-      winDeclareStatement.textContent =
-        'Dealer has ' + `${dealerHandTotal()}` + '. You Win!'
-    }
+  if (dealerHandTotal() < playerHandTotal()) {
+    winDeclareStatement.textContent = `Dealer has ${dealerHandTotal()}. You Win!`
+  }
 
-    if (dealerHandTotal() === playerHandTotal()) {
-      winDeclareStatement.textContent =
-        'Dealer has ' + `${dealerHandTotal()}` + '. You Lose'
-    }
+  if (dealerHandTotal() === playerHandTotal()) {
+    winDeclareStatement.textContent = `Dealer has ${dealerHandTotal()} . You Lose`
   }
 }
 
-playerChoseToHit = () => {
+const playerChoseToHit = () => {
   dealCardToPlayer()
   if (playerHandTotal() >= 22) {
     document.querySelector('.outcome').textContent = 'You Bust. Dealer Wins!'
@@ -80,29 +65,18 @@ playerChoseToHit = () => {
 }
 
 let dealerUnderSeventeen = () => {
-  if (dealerHandTotal() < 17) {
+  while (dealerHandTotal() < 17) {
     dealCardToDealer()
-    winnerDeclared()
   }
+  winnerDeclared()
 }
 
-playerChoseToStay = () => {
+const playerChoseToStay = () => {
   document.querySelector('.hide').classList.add('hidden')
   document.querySelector('.player-hit').classList.add('hide-button')
   document.querySelector('.player-stay').classList.add('hide-button')
-
   dealerUnderSeventeen()
-  dealerUnderSeventeen()
-  dealerUnderSeventeen()
-  dealerUnderSeventeen()
-
-  if (dealerHandTotal() >= 17 && dealerHandTotal() <= 21) {
-    winnerDeclared()
-  }
-
-  if (dealerHandTotal() >= 22) {
-    winnerDeclared()
-  }
+  winnerDeclared()
 }
 
 const main = () => {
@@ -134,12 +108,6 @@ const main = () => {
     })
   })
 
-  let playerHit = document.querySelector('.player-hit')
-  playerHit.addEventListener('click', playerChoseToHit)
-
-  let playerStay = document.querySelector('.player-stay')
-  playerStay.addEventListener('click', playerChoseToStay)
-
   for (let i = 52 - 1; i > 1; i -= 1) {
     let j = Math.floor(Math.random() * i)
     let firstCard = deck[i]
@@ -151,6 +119,12 @@ const main = () => {
   dealCardToPlayer()
   dealCardToPlayer()
   dealCardToDealer()
+
+  let playerHit = document.querySelector('.player-hit')
+  playerHit.addEventListener('click', playerChoseToHit)
+
+  let playerStay = document.querySelector('.player-stay')
+  playerStay.addEventListener('click', playerChoseToStay)
 
   document.querySelector('.play-again').addEventListener('click', () => {
     document.location = '/'
